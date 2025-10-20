@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<plataforma>
+    <cursos>
+        <curso id="C001" codigo="DAM1">
+            <titulo></titulo>
+            <nivel>Superior</nivel>
+            <modalidad>Online</modalidad>
+            <horas>2000</horas>
+            <modulos>
+                <modulo>
+                    <nombre>Lenguaje de marcas</nombre>
+                    <horas>96</horas>
+                </modulo>
+                <modulo clave = "Java">
+                    <nombre>Programacion</nombre>
+                    <horas>256</horas>
+                </modulo>
+            </modulos>
+        </curso>
+    </cursos>    
+
+    <alumnos>
+        <alumno id="A001" nif="16942341K">
+            <nombre>Juan Carlos Andrade Marín</nombre>
+            <email>jcandrade.marin@edu.com</email>
+            <telefono>611223345</telefono>
+        </alumno>
+        <alumno id="A002">
+            <nombre>Ana Lucía Vasquez Vasquez</nombre>
+            <email>analu.vasquez@edu.com</email>
+            <telefono>655444333</telefono>
+        </alumno>
+    </alumnos>
+
+    <matriculas>
+        <matricula id="M001" alumnoRef="A001" cursoRef="C001">
+            <fecha_alta>15/01/2025</fecha_alta>
+            <estado>Pendiente</estado>
+        </matricula>
+    </matriculas>
+
+    <evaluaciones>
+        <evaluacion id="EV001" matriculaRef="M001">
+            <instrumento>Test</instrumento>
+            <convocatoria>Ordinaria</convocatoria>
+            <nota>8.3</nota>
+        </evaluacion>
+    </evaluaciones>
+</plataforma>
