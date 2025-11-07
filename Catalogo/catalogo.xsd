@@ -30,11 +30,11 @@
             </xs:sequence>
             <xs:attribute name="id" type="xs:ID" use="required"/>
             <xs:attribute name="categoria" type="xs:string" use="required"/>
-            <xs:attribute name="isbn" type="xs:string" use="required"/>
+            <xs:attribute name="isbn" type="tipoIsbn" use="required"/>
             <xs:attribute name="paginas" type="xs:integer" use="optional"/>
         </xs:complexType>
     </xs:element>
-
+    
     <xs:element name="autores">
         <xs:complexType>
             <xs:sequence>
@@ -47,7 +47,7 @@
         <xs:complexType>
             <xs:sequence>
                 <xs:element name="nombre" type="xs:string"/>
-                <xs:element name="orcid" type="xs:string" minOccurs="0"/>
+                <xs:element name="orcid" type="tipoOrcid" minOccurs="0"/>
             </xs:sequence>
         </xs:complexType>
     </xs:element>
@@ -59,6 +59,18 @@
             </xs:sequence>
         </xs:complexType>
     </xs:element>
+    <!--Restricciones Libro-->
+    <xs:simpleType name="tipoIsbn">
+        <xs:restriction base="xs:string">
+            <xs:pattern value="[0-9]{13}"/>           
+        </xs:restriction>
+    </xs:simpleType>
+
+    <xs:simpleType name="tipoOrcid">
+        <xs:restriction base="xs:string">
+            <xs:pattern value="[0-9]{4}\-[0-9]{4}\-[0-9]{4}\-[0-9]{4}"/>            
+        </xs:restriction>
+    </xs:simpleType>
 
 
     <xs:element name="revistas">
@@ -77,10 +89,17 @@
             </xs:sequence>
             <xs:attribute name="id" type="xs:ID" use="required"/>
             <xs:attribute name="area" type="xs:string" use="required"/>
-            <xs:attribute name="issn" type="xs:string" use="required"/>
+            <xs:attribute name="issn" type="tipoIssn" use="required"/>
             <xs:attribute name="numero" type="xs:string" use="required"/>
         </xs:complexType>
     </xs:element>
+    <!--Restricciones Revista-->
+    <xs:simpleType name="tipoIssn">
+        <xs:restriction base="xs:string">
+            <xs:pattern value="[0-9]{4}\-[0-9]{3}[X0-9]"/>            
+        </xs:restriction>
+    </xs:simpleType>
+
 
     <xs:element name="usuarios">
         <xs:complexType>
@@ -94,13 +113,20 @@
         <xs:complexType>
             <xs:sequence>
                 <xs:element name="nombre" type="xs:string"/>
-                <xs:element name="email" type="xs:string"/>
+                <xs:element name="email" type="tipoEmailUs"/>
             </xs:sequence>
             <xs:attribute name="id" type="xs:ID" use="required"/>
-            <xs:attribute name="tipo" type="xs:string" use="required"/>          
+            <xs:attribute name="tipo" type="xs:string" use="required"/>
         </xs:complexType>
     </xs:element>
+    <!--Restricciones Usuario-->
+    <xs:simpleType name="tipoEmailUs">
+        <xs:restriction base="xs:string">
+            <xs:pattern value="([a-z0-9\.\-])+\@([a-z0-9\.\-])+\.[a-z][a-z]+"/>
+        </xs:restriction>
+    </xs:simpleType>
 
+    
     <xs:element name="prestamos">
         <xs:complexType>
             <xs:sequence>

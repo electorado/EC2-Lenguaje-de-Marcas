@@ -24,8 +24,8 @@
         <xs:complexType>
             <xs:sequence>
                 <xs:element name="titulo" type="xs:string"/>
-                <xs:element name="nivel" type="xs:string"/>
-                <xs:element name="modalidad" type="xs:string"/>
+                <xs:element name="nivel" type="tipoNivel"/>
+                <xs:element name="modalidad" type="tipoModalidad"/>
                 <xs:element name="horas" type="xs:string"/>
                 <xs:element ref="modulos" minOccurs="0"/>
             </xs:sequence>
@@ -33,6 +33,24 @@
             <xs:attribute name="codigo" type="xs:string" use="optional"/>
         </xs:complexType>
     </xs:element>
+    <!-- Restricciones Curso-->
+    <xs:simpleType name="tipoNivel">
+        <xs:restriction base="xs:string">
+            <xs:enumeration value="Básico"/>
+            <xs:enumeration value="Medio"/>
+            <xs:enumeration value="Superior"/>
+        </xs:restriction>
+    </xs:simpleType>
+
+    <xs:simpleType name="tipoModalidad">
+        <xs:restriction base="xs:string">
+            <xs:enumeration value="Presencial"/>
+            <xs:enumeration value="Online"/>
+            <xs:enumeration value="Híbrida"/>
+            <xs:enumeration value="Dual"/>
+        </xs:restriction>
+    </xs:simpleType>
+
 
     <xs:element name="modulos">
         <xs:complexType>
@@ -60,17 +78,31 @@
         </xs:complexType>
     </xs:element>
 
+
     <xs:element name="alumno">
         <xs:complexType>
             <xs:sequence>
                 <xs:element name="nombre" type="xs:string"/>
-                <xs:element name="email" type="xs:string"/>
+                <xs:element name="email" type="tipoEmail"/>
                 <xs:element name="telefono" type="xs:string"/>
             </xs:sequence>
             <xs:attribute name="id" type="xs:ID" use="required"/>
-            <xs:attribute name="nif" type="xs:string" use="optional"/>
+            <xs:attribute name="nif" type="tipoNIF" use="optional"/>
         </xs:complexType>
     </xs:element>
+    <!-- Restricciones Alumno-->
+     <xs:simpleType name="tipoEmail">
+        <xs:restriction base="xs:string">
+            <xs:pattern value="([a-z0-9\.\-])+\@([a-z0-9\.\-])+\.[a-z][a-z]+"/>
+        </xs:restriction>
+    </xs:simpleType>
+
+    <xs:simpleType name="tipoNIF">
+        <xs:restriction base="xs:string">
+            <xs:pattern value="[0-9]{8}\-[A-Z]"/>
+        </xs:restriction>
+    </xs:simpleType>
+
 
     <xs:element name="matriculas">
         <xs:complexType>
@@ -84,13 +116,21 @@
         <xs:complexType>
             <xs:sequence>
                 <xs:element name="fecha_alta" type="xs:string"/>
-                <xs:element name="estado" type="xs:string"/>
+                <xs:element name="estado" type="tipoEstado"/>
             </xs:sequence>
             <xs:attribute name="id" type="xs:ID" use="required"/>
             <xs:attribute name="alumnoRef" type="xs:IDREF" use="required"/>
             <xs:attribute name="cursoRef" type="xs:IDREF" use="required"/>
         </xs:complexType>
     </xs:element>
+    <!-- Restricciones Matrícula-->
+     <xs:simpleType name="tipoEstado">
+        <xs:restriction base="xs:string">
+            <xs:enumeration value="en_curso"/>
+            <xs:enumeration value="finalizado"/>
+        </xs:restriction>
+    </xs:simpleType>
+
 
     <xs:element name="evaluaciones">
         <xs:complexType>
@@ -105,10 +145,18 @@
             <xs:sequence>
                 <xs:element name="instrumento" type="xs:string"/>
                 <xs:element name="convocatoria" type="xs:string"/>
-                <xs:element name="nota" type="xs:string"/>
+                <xs:element name="nota" type="tipoNota"/>
             </xs:sequence>
             <xs:attribute name="id" type="xs:ID" use="required"/>
             <xs:attribute name="matriculaRef" type="xs:IDREF" use="required"/>
         </xs:complexType>
     </xs:element>
+    <!-- Restricciones Evaluación-->
+     <xs:simpleType name="tipoNota">
+        <xs:restriction base="xs:decimal">
+            <xs:fractionDigits value="1"/>
+            <xs:minInclusive value="0"/>
+            <xs:maxInclusive value="10"/>
+        </xs:restriction>
+    </xs:simpleType>
 </xs:schema>
